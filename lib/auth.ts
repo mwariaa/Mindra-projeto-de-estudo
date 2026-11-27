@@ -11,9 +11,9 @@ export const auth = betterAuth({
 
   trustedOrigins: [
     "http://localhost:3000",
+    "https://mindra-projeto-de-estudo.vercel.app",
     "https://mindraapp.com.br",
     "https://www.mindraapp.com.br",
-    process.env.BETTER_AUTH_URL!,
   ],
 
   emailAndPassword: {
