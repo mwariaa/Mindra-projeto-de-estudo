@@ -18,7 +18,9 @@ export const metadata: Metadata = {
   title: "Mindra | Aprenda. Lembre. Evolua.",
   description: "Uma nova forma de construir conhecimento.",
   icons: {
-    icon: "/favicon.png",
+    icon: [
+      { url: "/favicon.png", type: "image/png" },
+    ],
   },
 };
 
