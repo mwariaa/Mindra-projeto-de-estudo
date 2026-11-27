@@ -17,6 +17,9 @@ const cormorant = Cormorant_Garamond({
 export const metadata: Metadata = {
   title: "Mindra | Aprenda. Lembre. Evolua.",
   description: "Uma nova forma de construir conhecimento.",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
