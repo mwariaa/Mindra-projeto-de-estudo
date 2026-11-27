@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Tecnologias e bibliotecas utilizadas
 
-## Getting Started
+### Front-end
 
-First, run the development server:
+- **Next.js** – Framework para desenvolvimento da aplicação.
+- **React** – Construção de interfaces.
+- **TypeScript** – Tipagem estática.
+- **Tailwind CSS** – Estilização e responsividade.
 
+### Back-end
+
+- **Next.js API Routes** – Criação das rotas da API.
+- **Prisma ORM** – Comunicação e gerenciamento do banco de dados.
+- **Better Auth** – Autenticação e gerenciamento de sessões.
+- **Zod** – Validação de dados.
+- **bcryptjs** – Criptografia de senhas.
+
+### Inteligência Artificial
+
+- **Groq** – Geração de conteúdo e flashcards com IA.
+- **Cloudflare AI** – Geração de embeddings.
+- **Cloudflare Vectorize** – Armazenamento e busca vetorial.
+
+### Processamento de documentos
+
+- **pdf-parse** – Extração de conteúdo de arquivos PDF.
+- **pdfjs-dist** – Processamento de documentos PDF.
+
+### Banco de dados e serviços
+
+- **Neon PostgreSQL** – Banco de dados relacional.
+- **Resend** – Envio de e-mails de verificação de conta.
+
+
+##  Instalação das bibliotecas
+
+### 1. Front-end
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install next react react-dom
+npm install -D typescript @types/node @types/react @types/react-dom
+npm install tailwindcss @tailwindcss/postcss
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Back-end
+```bash
+npm install zod bcryptjs
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Autenticação
+```bash
+npm install better-auth
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Prisma e banco de dados
+```bash
+npm install prisma @prisma/client @prisma/adapter-neon
+npm install @neondatabase/serverless
+```
 
-## Learn More
+### 5. Inteligência Artificial
+```bash
+npm install groq-sdk
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 6. Processamento de documentos
+```bash
+npm install pdf-parse pdfjs-dist
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 7. Envio de e-mails
+```bash
+npm install resend
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 8. Cloudflare AI e Vectorize
+Integração realizada por meio das APIs da Cloudflare.
 
-## Deploy on Vercel
+### 9. Instalação das dependências
+```bash
+npm install
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 10. Executar o projeto
+```bash
+npm run dev
+```
