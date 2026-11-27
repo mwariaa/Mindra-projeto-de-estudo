@@ -111,4 +111,18 @@ export const auth = betterAuth({
     sendOnSignUp: true,
     autoSignInAfterVerification: true,
   },
+    rateLimit: {
+    enabled: true,
+    customRules: {
+      "/sign-in/email": {
+        window: 60,
+        max: 10,
+      },
+      "/sign-up/email": {
+        window: 60,
+        max: 5,
+      },
+    },
+  },
 });
+
