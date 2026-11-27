@@ -1,10 +1,12 @@
 
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { connection } from "next/server";
 
 export async function GET(request: Request) {
+  await connection();
+
   try {
-    // 1. Verificar autenticação
     const sessao = await auth.api.getSession({
       headers: request.headers,
     });
@@ -16,7 +18,6 @@ export async function GET(request: Request) {
       );
     }
 
-    // 2. Buscar as matérias do usuário e seus conteúdos
     const decks = await prisma.deck.findMany({
       where: {
         userId: sessao.user.id,
@@ -49,7 +50,6 @@ export async function GET(request: Request) {
       },
     });
 
-    // 3. Organizar os dados para o dashboard
     const materias = decks.map((deck) => {
       const conteudos = deck.topics.map((topic) => {
         const ultimaAvaliacao = topic.reviewHistory[0] ?? null;
@@ -72,7 +72,6 @@ export async function GET(request: Request) {
       };
     });
 
-    // 4. Calcular o resumo geral
     const todosConteudos = materias.flatMap(
       (materia) => materia.conteudos
     );
