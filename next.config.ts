@@ -1,12 +1,16 @@
+
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  serverExternalPackages: ["pdf-parse", "@napi-rs/canvas"],
+
   experimental: {
     agentFeedback: true,
   },
+
   cacheComponents: true,
   partialPrefetching: true,
+
   turbopack: {
     rules: {
       "*.css": {

@@ -1,0 +1,171 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  emailVerified Boolean @default(false)
+  image         String?
+
+  sessions Session[]
+  accounts Account[]
+  studyGoals StudyGoal[]
+  material Material[]
+  decks Deck[]
+  reviewHistory ReviewHistory[]
+}
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+
+  @@index([identifier])
+}
+model StudyGoal {
+  id        String   @id @default(cuid())
+  name      String
+  userId    String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+  decks Deck[]
+}
+
+model Material {
+  id         String   @id @default(cuid())
+  name       String
+  fileKey    String?
+  fileType   String
+  fileSize   Int
+  uploadedAt DateTime @default(now())
+
+  userId String
+  user   User @relation(fields: [userId], references: [id])
+  decks Deck[]
+  chunks MaterialChunk[]
+}
+
+model MaterialChunk {
+  id             String @id @default(cuid())
+  texto          String
+  paginaInicial  Int
+  paginaFinal    Int
+
+  materialId String
+  material   Material @relation(fields: [materialId], references: [id], onDelete: Cascade)
+
+  @@index([materialId])
+}
+
+model Deck {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String
+  user   User @relation(fields: [userId], references: [id])
+
+  studyGoalId String?
+  studyGoal   StudyGoal? @relation(fields: [studyGoalId], references: [id])
+
+  materialId String?
+  material   Material? @relation(fields: [materialId], references: [id])
+
+  topics Topic[]
+}
+model Topic {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+
+  deckId String
+  deck   Deck @relation(fields: [deckId], references: [id])
+  flashcards Flashcard[]
+  reviewHistory ReviewHistory[]
+}
+
+model Flashcard {
+  id            String   @id @default(cuid())
+  front         String
+  frontImageKey String?
+  backText      String?
+  backImageKey  String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  topicId String
+  topic   Topic @relation(fields: [topicId], references: [id])
+
+  
+}
+
+enum ReviewRating {
+  APROFUNDAR
+  REVISAR
+  DOMINANDO
+}
+
+model ReviewHistory {
+  id         String       @id @default(cuid())
+  rating     ReviewRating
+  reviewDate DateTime     @default(now())
+
+  topicId String
+  topic   Topic @relation(fields: [topicId], references: [id])
+
+  userId String
+  user   User @relation(fields: [userId], references: [id])
+}
